@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Sürtünme Kaybı Hesaplayıcısı (Hazen-Williams)</h1>
+    <h2>Akış Parametreleri</h2>
+    <div>
+        <form>
+            <label for="flow-rate">Debi</label>
+            <input type="number" id="flow-rate" step="any">
+            <select name="flow-rate" id="flow-rate-select">
+                <option value="GPM">GPM</option>
+                <option value="L/SEC">Litre/Saniye</option>
+                <option value="L/MIN">Litre/Dakika</option>
+                <option value="M3/HR">M3/Saat</option>
+                <option value="M3/SEC">M3/Saniye</option>
+                <option value="M3/DAY">M3/Gün</option>
+            </select>
+        </form>
+    </div>
+    <div style="margin-top:10px;">
+        <label for="liquid-fluid">Sıvı/Akışkan</label>
+        <select name="liquid-fluid" id="liquid-fluid-select">
+            <option value="Water" id="water" class="Su">Su</option>
+            <option value="CustomFluidProperties" id="customFluid">Özelleştirilmis Akışkan Özellikleri</option>
+            <!-- <option value="SaltWater" id="saltWater">Tuzlu Su</option> -->
+        </select>
+    </div>
+    <div style="margin-top:10px;">
+        <form>
+            <label for="Viscosity">Viskozite</label>
+            <input type="number" id="viscosity" step="any">
+            <select name="Viscosity" id="viscosity-type">
+                <option value="CENTIPOISE_CP">CENTIPOISE/CP</option>
+                <option value="KGM">KGM-1S-1 / NSM-2</option>
+                <option value="GCM">GCM-1S-1 / POISE</option>
+            </select>
+        </form>
+    </div>
+    <div style="margin-top:10px;">
+        <label for="SpecificGravity">Özgül Ağırlık</label>
+        <input type="number" id="specific-gravity" step="any">
+    </div>
+    <h2 style="margin-top:20px;">Boru Sistemi</h2>
+    <div style="margin-top:10px;">
+        <form>
+            <label for="pipe-length-label">Boru Uzunluğu</label>
+            <input type="number" step="any" id="pipe-length">
+            <select name="pipe-length-select" id="pipe-length-select">
+                <option value="feet">Feet</option>
+                <option value="meters">Metre</option>
+                <option value="inches">İnç</option>
+                <option value="kilometers">Kilometre</option>
+            </select>
+        </form>
+    </div>
+    <div style="margin-top:10px;">
+        <form>
+            <label for="pipeId-label">Boru Çapı</label>
+            <input type="number" step="any" id="pipeId">
+            <select name="pipeId-select" id="pipeId-select">
+                <option value="feet">Feet</option>
+                <option value="meters">Metre</option>
+                <option value="inches">İnç</option>
+                <option value="centimeters">Santimetre</option>
+                <option value="millimeters">Milimetre</option>
+            </select>
+        </form>
+    </div>
+    <div style="margin-top:10px;">
+        <form>
+            <label for="pipe-material">Boru Malzemesi</label>
+            <select name="pipe-material-select" id="pipe-material-select">
+                <option value="CustomPipeMaterial">Özelleştirilmiş Boru Malzemesi</option>
+                <option value="ABS">ABS - Akrilonitril Bütadien Stiren</option>
+                <option value="Aluminum">Alüminyum</option>
+                <option value="AsbestosCement">Asbestli Çimento</option>
+                <option value="AsphaltLining">Asfalt Kaplama</option>
+                <option value="Brass">Pirinç</option>
+                <option value="BrickSewer">Kanalizasyon Tuğlası</option>
+                <option value="CANew">Yeni Astarsız Döküm Demir</option>
+                <option value="CA10">10 Yıllık Döküm Demir</option>
+                <option value="CA20">20 Yıllık Döküm Demir</option>
+                <option value="CA30">30 Yıllık Döküm Demir</option>
+                <option value="CA40">40 Yıllık Döküm Demir</option>
+                <option value="CAAsphalt">Döküm Demir, Asfalt Kaplamalı</option>
+                <option value="CACement">Döküm Demir,Çimento Kaplamalı</option>
+                <option value="CABituminous">Döküm Demir,Bitümlü Kaplamalı</option>
+                <option value="CASea">Döküm Demir,Deniz Kaplamalı </option>
+                <option value="CAWroughtPlain">Sade İşlenmiş Döküm Demir</option>
+                <option value="CementLining">Çimento Astarı</option>
+                <option value="Concrete">Beton</option>
+                <option value="ConSteel">Beton, Çelik Kaplama</option>
+                <option value="ConWood">Beton, Tahta Kaplama</option>
+                <option value="ConOld">Beton, Eski</option>
+                <option value="Copper">Bakır</option>
+                <option value="CorrugatedMetalPipe">Oluklu Metal Boru</option>
+                <option value="DuctileIronPipe">Sünek Demir Boru</option>
+                <option value="DucCement">Sünek Demir, Çimento Kaplama</option>
+                <option value="Fiber">Fiber</option>
+                <option value="FiberGlassPipe">Fiberglas Boru - FRP</option>
+                <option value="FireHose">İtfaiye Hortumu, Kauçuk Kaplamalı</option>
+                <option value="GalvanizedIron">Galvanizli Demir</option>
+                <option value="Glass">Cam</option>
+                <option value="Lead">Kurşun</option>
+                <option value="MetalPipesSmooth">Metal Borular, Aşırı Pürüzsüz</option>
+                <option value="Plastic">Plastik</option>
+                <option value="Polyethylene">Polietilen</option>
+                <option value="PVC">PVC, CPVC</option>
+                <option value="RustedSteel">Paslı Çelik</option>
+                <option value="SteelEmabel">Çelik Komür-Katran Emaye Kaplama</option>
+                <option value="SteelForms">Çelik Kalıplar</option>
+                <option value="SteelNewUnlined">Astarsız Çelik Kaplama</option>
+                <option value="SteelCorrugated">Kıvrımlı Çelik</option>
+                <option value="SteelWelded">Kaynaklı ve Dikişsiz Çelik </option>
+                <option value="SteelInterior">İç Perçinli Çelik</option>
+                <option value="SteelInteriorNoProjection">İç Perçinli Çelik, dışarı çıkmayan</option>
+                <option value="SteelProjectingGirth">Dışarı Çıkan Çevresel ve Yatay Perçinli Çelik</option>
+                <option value="SteelVitrified">Çelik, Vitrifiye, Spiral Perçinli</option>
+                <option value="Tin">Kalay</option>
+                <option value="VitrifiedClay">Vitrifiye Kil</option>
+                <option value="WroughtIronPlain">Sade Dövme Demir</option>
+                <option value="WoodWellPlanned">Pürüzsüzleştirilmiş Ahşap</option>
+                <option value="WoodenMasonry">Ahşap veya Harç Boru - Pürüzsüz</option>
+            </select>
+        </form>
+        <div style="margin-top: 10px;">
+            <label for="hzFriction">HZ Sürtünme Katsayısı</label>
+            <input id="hzFriction" type="number" step="any">
+        </div>
+        <div style="margin-top: 10px;">
+            <label for="roughnessHeight">Pürüzlülük Yüksekliği</label>
+            <input type="number" id="roughnessHeight" step="any">
+            <select name="roughnessHeight" id="roughnessHeight-select">
+                <option value="Feet">Feet</option>
+                <option value="Meters">Metre</option>
+                <option value="Inches">İnç</option>
+                <option value="Centimeters">Santimetre</option>
+                <option value="Millimeters">Milimetre</option>
+            </select>
+
+        </div>
+    </div>
+    <div style="margin-top:10px;">
+        <label for="fitting-type">Bağlantı Türü</label>
+        <label style="margin-left:120px;" for="quantity">Miktar</label>
+    </div>
+    <div style="margin-top:10px;">
+        <form>
+            <select name="fitting-type-select" id="fitting-type-select1">
+                <option value="Elbow90SR">Dirsek 90° SR</option>
+                <option value="Elbow90LR">Dirsek 90° LR </option>
+                <option value="Elbow903R">Dirsek 90° 3R</option>
+                <option value="Elbow45SR">Dirsek 45° SR</option>
+                <option value="Elbow45LR">Dirsek 45° LR</option>
+                <option value="Elbow453R">Dirsek 45° 3R</option>
+                <option value="TeeLineFlow">Tee, Hat Akışı</option>
+                <option value="TeeBranchFlow">Tee, Dal Akışı</option>
+                <option value="ValveGlobeFullOpen">Vana, Globe, Tam Açık</option>
+                <option value="ValveGateFullOpen">Vana, Gate (Kepçe), Tam Açık</option>
+                <option value="ValveAngleFullOpen">Vana, Açı Vana, Tam Açık</option>
+                <option value="ValveBallFullPort">Vana, Küresel, Tam Port</option>
+                <option value="ValveBallReducedPort">Vana, Küresel, Azaltılmış Port</option>
+                <option value="ValveCheckSwing">Vana, Kontrol, Salınımlı</option>
+                <option value="ValveCheckClearWaySwing">Vana, Kontrol, Boş Yol Salınımlı</option>
+                <option value="ValveWaferDiskCheck">Vana, Wafer Diskli Kontrol</option>
+                <option value="ValveButterflyFullOpen">Vana, Kelebek, Tam Açık</option>
+                <option value="StrainerY">Filtre, Y(temiz)</option>
+                <option value="StrainerBasket">Filtre, Sepet(temiz)</option>
+            </select>
+            <input type="number" step="any" id="quantity1">
+        </form>
+    </div>
+    <div style="margin-top:10px;">
+        <form>
+            <select name="fitting-type-select" id="fitting-type-select2">
+                <option value="Elbow90SR">Dirsek 90° SR</option>
+                <option value="Elbow90LR">Dirsek 90° LR </option>
+                <option value="Elbow903R">Dirsek 90° 3R</option>
+                <option value="Elbow45SR">Dirsek 45° SR</option>
+                <option value="Elbow45LR">Dirsek 45° LR</option>
+                <option value="Elbow453R">Dirsek 45° 3R</option>
+                <option value="TeeLineFlow">Tee, Hat Akışı</option>
+                <option value="TeeBranchFlow">Tee, Dal Akışı</option>
+                <option value="ValveGlobeFullOpen">Vana, Globe, Tam Açık</option>
+                <option value="ValveGateFullOpen">Vana, Gate (Kepçe), Tam Açık</option>
+                <option value="ValveAngleFullOpen">Vana, Açı Vana, Tam Açık</option>
+                <option value="ValveBallFullPort">Vana, Küresel, Tam Port</option>
+                <option value="ValveBallReducedPort">Vana, Küresel, Azaltılmış Port</option>
+                <option value="ValveCheckSwing">Vana, Kontrol, Salınımlı</option>
+                <option value="ValveCheckClearWaySwing">Vana, Kontrol, Boş Yol Salınımlı</option>
+                <option value="ValveWaferDiskCheck">Vana, Wafer Diskli Kontrol</option>
+                <option value="ValveButterflyFullOpen">Vana, Kelebek, Tam Açık</option>
+                <option value="StrainerY">Filtre, Y(temiz)</option>
+                <option value="StrainerBasket">Filtre, Sepet(temiz)</option>
+            </select>
+            <input type="number" step="any" id="quantity2">
+        </form>
+    </div>
+    <div style="margin-top:10px;">
+        <form>
+            <select name="fitting-type-select" id="fitting-type-select3">
+                <option value="Elbow90SR">Dirsek 90° SR</option>
+                <option value="Elbow90LR">Dirsek 90° LR </option>
+                <option value="Elbow903R">Dirsek 90° 3R</option>
+                <option value="Elbow45SR">Dirsek 45° SR</option>
+                <option value="Elbow45LR">Dirsek 45° LR</option>
+                <option value="Elbow453R">Dirsek 45° 3R</option>
+                <option value="TeeLineFlow">Tee, Hat Akışı</option>
+                <option value="TeeBranchFlow">Tee, Dal Akışı</option>
+                <option value="ValveGlobeFullOpen">Vana, Globe, Tam Açık</option>
+                <option value="ValveGateFullOpen">Vana, Gate (Kepçe), Tam Açık</option>
+                <option value="ValveAngleFullOpen">Vana, Açı Vana, Tam Açık</option>
+                <option value="ValveBallFullPort">Vana, Küresel, Tam Port</option>
+                <option value="ValveBallReducedPort">Vana, Küresel, Azaltılmış Port</option>
+                <option value="ValveCheckSwing">Vana, Kontrol, Salınımlı</option>
+                <option value="ValveCheckClearWaySwing">Vana, Kontrol, Boş Yol Salınımlı</option>
+                <option value="ValveWaferDiskCheck">Vana, Wafer Diskli Kontrol</option>
+                <option value="ValveButterflyFullOpen">Vana, Kelebek, Tam Açık</option>
+                <option value="StrainerY">Filtre, Y(temiz)</option>
+                <option value="StrainerBasket">Filtre, Sepet(temiz)</option>
+            </select>
+            <input type="number" step="any" id="quantity3">
+        </form>
+    </div>
+    <div style="margin-top:10px;">
+        <form>
+            <select name="fitting-type-select" id="fitting-type-select4">
+                <option value="Elbow90SR">Dirsek 90° SR</option>
+                <option value="Elbow90LR">Dirsek 90° LR </option>
+                <option value="Elbow903R">Dirsek 90° 3R</option>
+                <option value="Elbow45SR">Dirsek 45° SR</option>
+                <option value="Elbow45LR">Dirsek 45° LR</option>
+                <option value="Elbow453R">Dirsek 45° 3R</option>
+                <option value="TeeLineFlow">Tee, Hat Akışı</option>
+                <option value="TeeBranchFlow">Tee, Dal Akışı</option>
+                <option value="ValveGlobeFullOpen">Vana, Globe, Tam Açık</option>
+                <option value="ValveGateFullOpen">Vana, Gate (Kepçe), Tam Açık</option>
+                <option value="ValveAngleFullOpen">Vana, Açı Vana, Tam Açık</option>
+                <option value="ValveBallFullPort">Vana, Küresel, Tam Port</option>
+                <option value="ValveBallReducedPort">Vana, Küresel, Azaltılmış Port</option>
+                <option value="ValveCheckSwing">Vana, Kontrol, Salınımlı</option>
+                <option value="ValveCheckClearWaySwing">Vana, Kontrol, Boş Yol Salınımlı</option>
+                <option value="ValveWaferDiskCheck">Vana, Wafer Diskli Kontrol</option>
+                <option value="ValveButterflyFullOpen">Vana, Kelebek, Tam Açık</option>
+                <option value="StrainerY">Filtre, Y(temiz)</option>
+                <option value="StrainerBasket">Filtre, Sepet(temiz)</option>
+            </select>
+            <input type="number" step="any" id="quantity4">
+        </form>
+    </div>
+    <div style="margin-top:10px;">
+        <form>
+            <select name="fitting-type-select" id="fitting-type-select5">
+                <option value="Elbow90SR">Dirsek 90° SR</option>
+                <option value="Elbow90LR">Dirsek 90° LR </option>
+                <option value="Elbow903R">Dirsek 90° 3R</option>
+                <option value="Elbow45SR">Dirsek 45° SR</option>
+                <option value="Elbow45LR">Dirsek 45° LR</option>
+                <option value="Elbow453R">Dirsek 45° 3R</option>
+                <option value="TeeLineFlow">Tee, Hat Akışı</option>
+                <option value="TeeBranchFlow">Tee, Dal Akışı</option>
+                <option value="ValveGlobeFullOpen">Vana, Globe, Tam Açık</option>
+                <option value="ValveGateFullOpen">Vana, Gate (Kepçe), Tam Açık</option>
+                <option value="ValveAngleFullOpen">Vana, Açı Vana, Tam Açık</option>
+                <option value="ValveBallFullPort">Vana, Küresel, Tam Port</option>
+                <option value="ValveBallReducedPort">Vana, Küresel, Azaltılmış Port</option>
+                <option value="ValveCheckSwing">Vana, Kontrol, Salınımlı</option>
+                <option value="ValveCheckClearWaySwing">Vana, Kontrol, Boş Yol Salınımlı</option>
+                <option value="ValveWaferDiskCheck">Vana, Wafer Diskli Kontrol</option>
+                <option value="ValveButterflyFullOpen">Vana, Kelebek, Tam Açık</option>
+                <option value="StrainerY">Filtre, Y(temiz)</option>
+                <option value="StrainerBasket">Filtre, Sepet(temiz)</option>
+            </select>
+            <input type="number" step="any" id="quantity5">
+        </form>
+    </div>
+    <div style="margin-top:10px;">
+        <button style="text-align: center;" id="calculate_btn">Hesapla</button>
+    </div>
+    <div style="margin-top: 10px;">
+        <button style="text-align: center;" id="clearButton">Hepsini Temizle</button>
+    </div>
+    <div style="margin-top: 10px;">
+        <button style="text-align: center;" id="pdfButton">PDF Raporu Olustur</button>
+    </div>
+    <div style="margin-top: 10px;">
+        <h2>Sürtünme Kaybı Hesap Sonuçları</h2>
+    </div>
+    <div style="margin-top: 10px;">
+        <form>
+            <select name="returnResultAs-select" id="returnResultAs-select">
+                <option value="PSI">PSI</option>
+                <option value="KPA">KPA</option>
+                <option value="HEADFT">HEAD FT</option>
+                <option value="HEADM">HEAD M</option>
+                <option value="BAR">BAR</option>
+            </select>
+            <label for="returnResultAs-label">'ye göre dönüş değeri</label>
+        </form>
+    </div>
+    <div style="margin-top: 10px;">
+        <label for="totalFrictionLoss">Toplam Sürtünme Kaybı&nbsp;</label>
+        <input type="number" step="any" id="hazenInput" disabled>
+        <label for="HAZEN">(Hazen Williams Denklemi)</label>
+    </div>
+    <div style="margin-top: 10px;">
+        <form>
+            <label>Akışkan
+                Hızı&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="number" step="any" id="fluid-velocity" disabled>
+            <select name="fluid-velocity-select" id="fluid-velocity-select">
+                <option value="Meters-SEC">Metre/Saniye</option>
+                <option value="Meters-MIN">Metre/Dakika</option>
+                <option value="Meters-Hour">Metre/Saat</option>
+            </select>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="app.js"></script>
+    <script type="module" src="app2.js"></script>
+</body>
+
+</html>

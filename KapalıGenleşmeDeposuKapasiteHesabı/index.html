@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapalı Genleşme Deposu Kapasite Hesabı</title>
+</head>
+
+<body>
+    <h2>Kapalı Genleşme Deposu Kapasite Hesabı</h2>
+    <h3 style="color: red;">Not: Ondalıklı sayı girişi yaparken virgül yerine nokta kullanınız.</h3>
+    <div id="inputvAContainer">
+        <label for="qK">Kazan Kapasitesi:</label>
+        <input type="number" step="any" id="qkInput">
+        <select id="qK-select">
+            <option value="KCAL">kcal/saat</option>
+            <option value="KW">kW</option>
+        </select>
+        <br>
+
+        <label for="f">Isıtıcı Elemanlar (lt / 1000 kcal /h)</label>
+        <select name="fElements" id="fElements-select">
+            <option value="Konyektor">Konyektör</option>
+            <option value="Fankoil">Fankoil</option>
+            <option value="PanelRadyator">Panel Radyatör</option>
+            <option value="CastIronRadyator">Döküm Radyator</option>
+            <option value="SteelRadyator">Çelik Radyator</option>
+            <option value="FloorHeat">Yerden Isıtma</option>
+        </select>
+    </div>
+
+    <input type="checkbox" id="vACheckbox">
+    <label for="vACheckbox">Toplam su hacmi biliniyorsa kutucuğu işaretleyin. (lt)</label>
+    <br><br>
+    <div id="inputnContainer">
+        <label for="t1">Tmax (°C)</label>
+        <select name="t1-select" id="t1-select">
+            <option value="0">0°C</option>
+            <option value="10">10°C</option>
+            <option value="20">20°C</option>
+            <option value="30">30°C</option>
+            <option value="40">40°C</option>
+            <option value="50">50°C</option>
+            <option value="55">55°C</option>
+            <option value="60">60°C</option>
+            <option value="65">65°C</option>
+            <option value="70">70°C</option>
+            <option value="75">75°C</option>
+            <option value="80">80°C</option>
+            <option value="85">85°C</option>
+            <option value="90">90°C</option>
+            <option value="95">95°C</option>
+            <option value="100">100°C</option>
+            <option value="110">110°C</option>
+        </select><br>
+
+        <label for="t2">Tmin (°C)</label>
+        <select name="t2-select" id="t2-select">
+            <option value="0">0°C</option>
+            <option value="10">10°C</option>
+            <option value="20">20°C</option>
+            <option value="30">30°C</option>
+            <option value="40">40°C</option>
+            <option value="50">50°C</option>
+            <option value="55">55°C</option>
+            <option value="60">60°C</option>
+            <option value="65">65°C</option>
+            <option value="70">70°C</option>
+            <option value="75">75°C</option>
+            <option value="80">80°C</option>
+            <option value="85">85°C</option>
+            <option value="90">90°C</option>
+            <option value="95">95°C</option>
+            <option value="100">100°C</option>         
+            <option value="110">110°C</option>
+       </select><br>
+    </div>
+    <br><br>
+    <div id="buildingContainer">
+        <label>Çatı ile kazan arasındaki kot farkını metre cinsinden giriniz.</label>
+        <input type="number" step="any" id="buildingHeight"><br><br>
+    </div>
+    <div>
+        <input type="checkbox" id="buildingCheckbox">
+        <label>Binanın kat sayısı, katlar arası yükseklik bilgisi ve deponun zeminle arasındaki yükseklik bilgisi
+            girilerek hesaplama yapmak için kutucuğu
+            işaretleyin.</label>
+        <hr>
+
+    </div>
+    <label>Emniyet Ventili Açma Basıncı (bar)</label>
+    <input type="number" step="any" id="ventileInput">
+    <button id="calculateBtn">Hesapla</button>
+    <hr>
+    <input type="number" step="any" id="resultInput" disabled>
+    <br><br>
+    <div>
+        <button id="cleanButton1">Hepsini Temizle</button>
+    </div>
+    <div>
+        <button id="pdfButton1">PDF Raporu Oluştur</button>
+    </div>
+    <br><br><br><br><br>
+    <h2>Genleşme Tankı Hacim Hesabı (Basınç Şalterli Hidroforlar için)</h2>
+    <div id="switchContainer">
+        <div>
+            <label>Alt Basınçta Her Bir Pompanın Debisi(m3/h)</label>
+            <input type="number" step="any" id="switchQ">
+        </div>
+        <div>
+            <label>Hidrofor alt basıncı(bar)</label>
+            <input type="number" step="any" id="hAlt">
+        </div>
+        <div>
+            <label>Hidrofor üst basıncı(bar)</label>
+            <input type="number" step="any" id="hUst">
+        </div>
+        <div>
+            <label>Ana Pompa Sayısı</label>
+            <select id="pump-select">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+            <label>Yedek Pompa Sayısı</label>
+            <select id="pump-select2">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+        </div>
+        <div>
+            <label>Motor Gücü(kW)</label>
+            <input type="number" step="any" id="motorPowerInput">
+        </div>
+        <button id="calculateSwitch">Hesapla</button>
+        <input id="switchResult" type="number" step="any" disabled>
+        <div><button id="cleanButton2">Hepsini Temizle</button></div>
+        <div><button id="pdfButton2">PDF Raporu Oluştur</button></div>
+    </div>
+    <br><br><br><br><br>
+    <h2>Genleşme Tankı Hacim Hesabı (Frekans Konvertörlü Hidroforlar için)</h2>
+    <div id="frequencyContainer">
+        <div>
+            <label>Debi (m3/h)</label>
+            <input type="number" step="any" id="frequencyQ">
+        </div>
+        <div>
+            <label>Alt Basınç</label>
+            <input type="number" step="any" id="HmSS">
+            <label>mSS</label>
+            <br>
+            <p style="color: red;">Not: Üst basınç değeri biliniyorsa giriniz. Bilinmiyorsa boş bırakabilirsiniz.</p>
+            <label>Üst Basınç</label>
+            <input type="number" step="any" id="Hshutoff">
+        </div>
+        <div>
+            <label>Motor Gücü(kW)</label>
+            <input type="number" step="any" id="frequencyMotorPower">
+        </div>
+        <div>
+            <label>Ana Pompa Sayısı</label>
+            <select id="pump-select-frequency">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+            <label>Yedek Pompa Sayısı</label>
+            <select id="pump-select-frequency2">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+        </div>
+        <button id="frequencyButton">Hesapla</button>
+        <input type="number" step="any" id="frequencyResult" disabled>
+        <div>
+            <button id="cleanButton3">Hepsini Temizle</button>
+        </div>
+        <div>
+            <button id="pdfButton3">PDF Raporu Oluştur</button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="app.js"></script>
+    <script src="app2.js"></script>
+    <script src="app3.js"></script>
+    <script type="module" src="app4.js"></script>
+    <script type="module" src="app5.js"></script>
+    <script type="module" src="app6.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santrifüj Pompa Güç Hesabı</title>
+</head>
+<body>
+    <h2 style="text-align: center;">Santrifüj Pompa Güç Hesabı</h2>
+    <h3 style="margin-top: 10px;">Lütfen aşağıdaki alanlardan 3 tanesini doldurunuz.</h3>
+    <div style="margin-top: 10px;">
+        <label>Basınç</label>
+        <input type="number" id="pressure" step="any">
+        <select id="pressure-select">
+            <option value="PSI">PSI</option>
+            <option value="KPA">KPA</option>
+            <option value="HEADFT">HEAD FT</option>
+            <option value="HEADM">HEAD M</option>
+            <option value="BAR">BAR</option>
+        </select>
+    </div>
+    <div style="margin-top:10px">
+        <label>Debi</label>
+        <input type="number" id="flow" step="any">
+        <select id="flow-select">
+            <option value="GPM">GPM</option>
+            <option value="LSEC">L/SEC</option>
+            <option value="LMIN">L/MIN</option>
+            <option value="M3HR">M3/HR</option>
+            <option value="M3SEC">M3/SEC</option>
+            <option value="M3DAY">M3/DAY</option>
+        </select>
+    </div>
+    <div style="margin-top: 10px;">
+        <label>Verimlilik</label>
+        <input type="number" id="efficiency" step="any">
+        <label>%</label>
+    </div>
+    <div style="margin-top: 10px;">
+        <label>Güç</label>
+        <input type="number" id="power" step="any">
+        <select id="power-select">
+            <option value="HP">HP</option>
+            <option value="KW">KW</option>
+            <option value="W">W</option>
+            <option value="MW">MW</option>
+        </select>
+    </div>
+    <div style="margin-top:10px;">
+        <label>Sıvı/Akışkan</label>
+        <select id="liquid-fluid-select">
+            <option value="Custom">Özelleştirilmiş Akışkan Özellikleri</option>
+            <option value="Water">Su</option>
+            <option value="SaltWater">Deniz Suyu</option>
+        </select>
+    </div>
+    <div style="margin-top: 10px;">
+        <label>Özgül Ağırlık</label>
+        <input type="number" step="any" id="specific-gravity">
+    </div>
+    <div style="margin-top: 10px;">
+        <button id="calculateButton">Hesapla</button>
+    </div>
+    <div style="margin-top: 10px;">
+        <button id="clearButton">Hepsini Temizle</button>
+    </div>
+    <div style="margin-top: 10px;">
+        <button id="pdfButton">PDF Raporu Oluştur</button>
+    </div>
+    <div style="margin-top: 10px; position:relative; display:inline-block;" id="image-container">
+        <img src="centrifugal-pump-power-calculation.png" alt="Santrifüj Pompa Güç Hesabı" id="pump-image" width="600" height="400">
+        <div style="position: absolute; top:40px; left:220px; font-weight:bold">Güç</div>
+        <div style="position: absolute; top:90px; left:480px; font-weight:bold">Verimlilik</div>
+        <div style="position: absolute; top:40px; left:370px; font-weight:bold">Ayar Noktası</div>
+    </div>
+    <script src="app.js"></script>  
+    <script src="app2.js" type="module"></script>
+</body>
+</html>

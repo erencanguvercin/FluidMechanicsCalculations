@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volt,Amper,Güç Hesabı</title>
+</head>
+<body>
+    <h2 style="text-align: center;">Volt, Amper, Güç Hesabı</h2>
+    <div>
+        <label>Akım Tipi: </label>
+        <input type="radio" id="ACRadio" name="currentType" value="AC" checked>
+        <label>Alternatif Akım (AC)</label>
+        <input type="radio" id="DCRadio" name="currentType" value="DC">
+        <label>Doğru Akım (DC)</label>
+    </div>
+    <div id="radioContainer">
+        <div style="margin-top: 10px;">
+            <label>Güç Faktörü: </label>
+            <input type="number" id="powerFactor" step="any">
+        </div>
+        <div style="margin-top: 10px;">
+            <label>Gerilim Farkı (Voltaj)</label>
+            <input type="number" id="voltage" step="any">
+        </div>
+        <div style="margin-top: 10px;">
+            <label>Akım/Amper</label>
+            <input type="number" id="current" step="any">
+        </div>
+        <div style="margin-top: 10px;">
+            <label>Güç/Watt</label>
+            <input type="number" id="power" step="any">
+        </div>
+    </div>
+    <div style="margin-top: 10px;">
+        <button id="calculateButton">Hesapla</button>
+    </div>
+    <div style="margin-top: 10px;">
+        <button id="clearButton">Hepsini Temizle</button>
+    </div>
+    <div style="margin-top: 10px;">
+        <button id="pdfButton">PDF Raporu Oluştur</button>
+    </div>
+
+
+    <script src="app.js"></script>
+    <script src="app2.js" type="module"></script>
+</body>
+</html>

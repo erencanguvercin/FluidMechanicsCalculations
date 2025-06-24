@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pompa Eğrisi Hız Hesabı</title>
+</head>
+<body>
+    <h1 style="text-align: center;">Pompa Eğrisi Hız Hesabı</h1> 
+<div style="margin-top:10px;">
+    <h2>Bilinen Çalışma Koşulları</h2>
+</div>
+<div style="margin-top: 10px;">
+    <h3>(her 3 alana da değer girin)</h3>
+</div>
+<div style="margin-top: 10px;">
+    <label>Basınç</label>
+    <input type="number" id="pressure" step="any">
+    <select id="pressure-select">
+        <option value="PSI">PSI</option>
+        <option value="KPA">KPA</option>
+        <option value="HEADFT">HEAD FT</option>
+        <option value="HEADM">HEAD M</option>
+        <option value="BAR">BAR</option>
+    </select>
+</div>
+<div style="margin-top: 10px;">
+    <label>Debi</label>
+    <input type="number" id="flow" step="any">
+    <select id="flow-select">
+        <option value="GPM">GPM</option>
+        <option value="LSEC">L/SEC</option>
+        <option value="LMIN">L/MIN</option>
+        <option value="M3HR">M3/HR</option>
+        <option value="M3SEC">M3/SEC</option>
+        <option value="M3DAY">M3/DAY</option>
+    </select>
+</div>
+<div style="margin-top: 10px;">
+    <label>Hız</label>
+    <input type="number" id="speed" step="any">
+    <select id="speed-select">
+        <option value="RPM">RPM</option>
+        <option value="RPS">RPS</option>
+        <option value="RADS">RAD/S</option>
+        <option value="RADMIN">RAD/MIN</option>
+    </select>
+</div>
+<div style="margin-top:10px;">
+    <h2>Ayarlanmış Çalışma Koşulları</h2>
+</div>
+<div style="margin-top: 10px;">
+    <h3>(3 alandan herhangi birine bir değer girin)</h3>
+</div>
+<div style="margin-top: 10px;">
+    <label>Basınç</label>
+    <input type="number" id="pressure2" step="any">
+    <select id="pressure-select2" disabled>
+        <option value="PSI">PSI</option>
+        <option value="KPA">KPA</option>
+        <option value="HEADFT">HEAD FT</option>
+        <option value="HEADM">HEAD M</option>
+        <option value="BAR">BAR</option>
+    </select>
+</div>
+<div style="margin-top: 10px;">
+    <label>Debi</label>
+    <input type="number" id="flow2" step="any">
+    <select id="flow-select2" disabled>
+        <option value="GPM">GPM</option>
+        <option value="LSEC">L/SEC</option>
+        <option value="LMIN">L/MIN</option>
+        <option value="M3HR">M3/HR</option>
+        <option value="M3SEC">M3/SEC</option>
+        <option value="M3DAY">M3/DAY</option>
+    </select>
+</div>
+<div style="margin-top: 10px;">
+    <label>Hız</label>
+    <input type="number" id="speed2" step="any">
+    <select id="speed-select2" disabled>
+        <option value="RPM">RPM</option>
+        <option value="RPS">RPS</option>
+        <option value="RADS">RAD/S</option>
+        <option value="RADMIN">RAD/MIN</option>
+    </select>
+</div>
+<div style="margin-top: 10px;">
+    <h2>Ek Bilgi (isteğe bağlı)</h2>
+</div>
+<div style="margin-top: 10px;">
+    <h3>(Hesaplama sonuçlarına Gücün dahil edilebilmesi için aşağıdaki alanların doldurulması gerekmektedir)</h3>
+</div>
+<div style="margin-top: 10px;">
+    <label>Bilinen Verimlilik</label>
+    <input type="number" step="any" id="efficiency">
+    <label>%</label>
+</div>
+<div style="margin-top: 10px;">
+    <label>Sıvı/Akışkan</label>
+    <select id="liquid-select">
+        <option value="Custom">Özelleştirilmiş Akışkan Özellikleri</option>
+        <option value="Water">Su</option>
+        <option value="SaltWater">Deniz Suyu</option>
+    </select>
+</div>
+<div style="margin-top:10px;">
+    <label>Özgül Ağırlık</label>
+    <input type="number" step="any" id="specific-gravity">
+</div>
+<div style="margin-top: 10px;">
+    <button id="calculateButton">Hesapla</button>
+</div>
+<div style="margin-top: 10px;">
+    <button id="clearButton">Hepsini Temizle</button>
+</div>
+<div style="margin-top: 10px;">
+    <button id="pdfButton">PDF Raporu Oluştur</button>
+</div>
+<div style="margin-top: 30px; position:relative; display:inline-block;" id="image-container">
+    <img src="curve2.png" alt="Sonuç Grafiği" width="725px" height="534px">
+    <div style="position: absolute; left:90px; top:65px; font-weight:bold">Ayarlanmış Güç</div>
+    <div style="position: absolute; left:275px; top:65px; font-weight:bold">Güç</div>
+    <div style="position: absolute; left:87px; top:145px; font-weight:bold">Hız</div>
+    <div style="position: absolute; left:60px; top:212px; font-weight:bold">Ayarlanmış Hız</div>
+    <div style="position: absolute; left:420px; top:40px; font-weight:bold">Bilinen Nokta</div>
+    <div style="position: absolute; left:385px; top:375px; font-weight:bold">Ayarlanan Nokta</div>
+    <div style="position: absolute; left:600px; top:110px; font-weight:bold">Verimlilik</div>
+</div>
+<script src="app.js"></script>
+<script src="app2.js" type="module"></script>
+</body>
+</html>
